@@ -1,7 +1,7 @@
 import praw
 import re
 
-#TODO: SEARCH FOR TODOs when testing and editing!
+#TODO: SEARCH FOR TODOs when testing and editing
 
 #Converts numeric words zero through ninety-nine to their associated float value
 def numWords(num):
@@ -75,12 +75,12 @@ def AverageRating():
                 for line in f:
                     if line == comment.id + '\n':
                         inFile = 1
-                        print("Call comment in file.")
+                        #print("Call comment in file.")
                         break
                 if inFile:
                     continue
                 else:
-                    print("Call comment added.")
+                    #print("Call comment added.")
                     #TODO: Comment out when testing
                     f.write(comment.id + '\n')
 
@@ -91,7 +91,7 @@ def AverageRating():
                 rtMatch = ratePattern.search(top_level_comment.body)
                 #Check if the top lvl comment has a range of ratings
                 if rngMatch:
-                    print("Range Comment: " + top_level_comment.body)
+                    #print("Range Comment: " + top_level_comment.body)
                     #First numerator
                     n1 = -1
                     #Second numerator
@@ -114,35 +114,35 @@ def AverageRating():
                     #If a valid range rating is found, add to the average
                     if n1 > -1 and n2 > -1 and d > -1:
                         count += 1
-                        print("Count: " + str(count))
+                        #print("Count: " + str(count))
                         sum += ((n1 + n2)/2) * (10.0 / d)
-                        print("Sum: " + str(sum))
+                        #print("Sum: " + str(sum))
 
                 #Check if the top lvl comment has a normal rating
                 elif rtMatch:
-                    print("Normal Comment: " + top_level_comment.body)
+                    #print("Normal Comment: " + top_level_comment.body)
                     for i in range(1, 6, 2):
                         rtg1 = numWords(str(rtMatch.group(i)))
                         rtg2 = numWords(str(rtMatch.group(i + 1)))
                         if (rtg1 > -1 and rtg2 > -1):
                             count += 1
-                            print("Count: " + str(count))
+                            #print("Count: " + str(count))
                             if rtg1 > rtg2:
                                 sum += rtg2
                             else:
                                 sum += rtg1 * (10.0 / rtg2)
-                            print("Sum: " + str(sum))
+                            #print("Sum: " + str(sum))
                             break
 
             #Reply to the call comment with the thread average rating!
             if count == 0:
-                print("No valid ratings available for average.")
+                #print("No valid ratings available for average.")
                 #TODO: Comment out when testing
                 comment.reply('There are no ratings I can read yet. Try again later with a reply to this comment!')
             else:
-                print("Sum = %.2f" % sum)
-                print("Count = " + str(count))
-                print("Average = %.2f" % (sum/count))
+                #print("Sum = %.2f" % sum)
+                #print("Count = " + str(count))
+                #print("Average = %.2f" % (sum/count))
                 #TODO: Comment out when testing
                 comment.reply('The average rating is %.2f' % (sum / count) + '/10!')
 
