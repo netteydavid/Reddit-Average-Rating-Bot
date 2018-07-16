@@ -144,6 +144,6 @@ def AverageRating():
                 #print("Count = " + str(count))
                 #print("Average = %.2f" % (sum/count))
                 #TODO: Comment out when testing
-                comment.reply('The average rating is %.2f' % (sum / count) + '/10!')
+                comment.reply('The average rating is %.2f' % (sum / count) + '/10!\n\nGo to my profile for help and more information!')
 
 AverageRating()
