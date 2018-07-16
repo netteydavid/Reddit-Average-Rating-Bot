@@ -1,0 +1,38 @@
+(
+	(\d*.?\d+)\s?/\s?(\d*.?\d+)|
+	(\d*.?\d+) out of (\d*.?\d+)|
+	(\d*.?\d+) outta (\d*.?\d+)|
+	(\d*.?\d+)
+)
+\s?-\s?
+(
+	(\d*.?\d+)\s?/\s?(\d*.?\d+)|
+	(\d*.?\d+) out of (\d*.?\d+)|
+	(\d*.?\d+) outta (\d*.?\d+)
+)
+|
+(
+	([a-zA-Z]+[\- ]?[a-zA-Z]*)\s?/\s?([a-zA-Z]+[\- ]?[a-zA-Z]*)|
+	([a-zA-Z]+[\- ]?[a-zA-Z]*) out of ([a-zA-Z]+[\- ]?[a-zA-Z]*)|
+	([a-zA-Z]+[\- ]?[a-zA-Z]*) outta ([a-zA-Z]+[\- ]?[a-zA-Z]*)|
+	([a-zA-Z]+[\- ]?[a-zA-Z]*)
+)
+\s+-\s+
+(
+	([a-zA-Z]+[\- ]?[a-zA-Z]*)\s?/\s?([a-zA-Z]+[\- ]?[a-zA-Z]*)|
+	([a-zA-Z]+[\- ]?[a-zA-Z]*) out of ([a-zA-Z]+[\- ]?[a-zA-Z]*)|
+	([a-zA-Z]+[\- ]?[a-zA-Z]*) outta ([a-zA-Z]+[\- ]?[a-zA-Z]*)
+)
+|
+(
+	([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+)\s?/\s?([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+)|
+	([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+) out of ([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+)|
+	([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+) outta ([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+)|
+	([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+)
+)
+ to 
+(
+	([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+)\s?/\s?([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+)|
+	([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+) out of ([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+)|
+	([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+) outta ([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+)
+)
