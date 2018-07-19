@@ -43,7 +43,7 @@ def numWords(num):
 def AverageRating():
 
     #The call string
-    callStr = '!AverageRating'
+    callStr = r'!averagerating'
 
     #Regular expression for normal ratings (i.e. 3/10, six out of ten, 5 outta 5, etc.)
     rateRE = r'([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+)\s?/\s?([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+)|([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+) out of ([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+)|([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+) outta ([a-zA-Z]+[\- ]?[a-zA-Z]*|\d*.?\d+)'
@@ -52,6 +52,9 @@ def AverageRating():
     #Compile each expression into a pattern
     ratePattern = re.compile(rateRE)
     rangePattern = re.compile(rangeRE)
+
+    #Call Pattern
+    callPattern = re.compile(callStr)
 
     #Get the bot user account and reddit api
     reddit = praw.Reddit('AverageRatingBot')
@@ -66,7 +69,8 @@ def AverageRating():
 
     #Fetch the latest comments for parsing
     for comment in subreddits.stream.comments():
-        if comment.body == callStr:
+        callMatch = callPattern.search(comment.body.lower())
+        if callMatch:
             #Check if the comment has been replied to. If not, record and reply
             inFile = 0
             with open('replied.txt', 'a+') as f:
