@@ -1,6 +1,15 @@
 #!/usr/bin/env python3
 import praw
 import re
+import logging
+import datetime
+
+#Configure Logging
+handler = logging.FileHandler('logging.out')
+handler.setLevel(logging.DEBUG)
+logger = logging.getLogger('prawcore')
+logger.setLevel(logging.DEBUG)
+logger.addHandler(handler)
 
 #TODO: SEARCH FOR TODOs when testing and editing
 
@@ -72,6 +81,8 @@ def AverageRating():
     for comment in subreddits.stream.comments():
         callMatch = callPattern.search(comment.body.lower())
         if callMatch:
+            logger.debug(datetime.datetime.now())
+            logger.debug('Call found! ' + comment.id)
             #Check if the comment has been replied to. If not, record and reply
             inFile = 0
             with open('replied.txt', 'a+') as f:
@@ -80,11 +91,13 @@ def AverageRating():
                 for line in f:
                     if line == comment.id + '\n':
                         inFile = 1
+                        logger.debug("Call comment in file.")
                         #print("Call comment in file.")
                         break
                 if inFile:
                     continue
                 else:
+                    logger.debug("Call comment added.")
                     #print("Call comment added.")
                     #TODO: Comment out when testing
                     f.write(comment.id + '\n')
@@ -142,13 +155,26 @@ def AverageRating():
             #Reply to the call comment with the thread average rating!
             if count == 0:
                 #print("No valid ratings available for average.")
+                logger.debug("No valid ratings available for average.")
                 #TODO: Comment out when testing
                 comment.reply('There are no ratings I can read yet. Try again later with a reply to this comment!')
             else:
                 #print("Sum = %.2f" % sum)
+                logger.debug("Sum = %.2f" % sum)
                 #print("Count = " + str(count))
+                logger.debug("Count = " + str(count))
                 #print("Average = %.2f" % (sum/count))
+                logger.debug("Average = %.2f" % (sum/count))
                 #TODO: Comment out when testing
                 comment.reply('The average rating is %.2f' % (sum / count) + '/10!\n\nGo to my profile for help and more information!')
 
-AverageRating()
+try:
+    AverageRating()
+except PrawcoreException:
+    logger.debug('PrawcoreException occured: ' + PrawcoreException.original_exception)
+    logger.debug('Retrying...')
+    AverageRating()
+except APIException:
+    logger.debug('Server side error occured: ' + APIException.message)
+except ClientException:
+    logger.debug('Client side error  occured')
