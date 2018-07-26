@@ -168,13 +168,19 @@ def AverageRating():
                 #TODO: Comment out when testing
                 comment.reply('The average rating is %.2f' % (sum / count) + '/10!\n\nGo to my profile for help and more information!')
 
-try:
-    AverageRating()
-except PrawcoreException:
-    logger.debug('PrawcoreException occured: ' + PrawcoreException.original_exception)
-    logger.debug('Retrying...')
-    AverageRating()
-except APIException:
-    logger.debug('Server side error occured: ' + APIException.message)
-except ClientException:
-    logger.debug('Client side error  occured')
+while True:
+    try:
+        AverageRating()
+    except PrawcoreException:
+        logger.debug('PrawcoreException occured: ' + PrawcoreException.original_exception)
+        logger.debug('Retrying...')
+        pass
+    except APIException:
+        logger.debug('Server side error occured: ' + APIException.message)
+        pass
+    except ClientException:
+        logger.debug('Client side error  occured')
+        break
+    except:
+        logger.debut('Error occured!')
+        pass
