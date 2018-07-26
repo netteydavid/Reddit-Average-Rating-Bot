@@ -174,13 +174,10 @@ while True:
     except PrawcoreException:
         logger.debug('PrawcoreException occured: ' + PrawcoreException.original_exception)
         logger.debug('Retrying...')
-        pass
     except APIException:
         logger.debug('Server side error occured: ' + APIException.message)
-        pass
     except ClientException:
         logger.debug('Client side error  occured')
         break
     except:
         logger.debut('Error occured!')
-        pass
